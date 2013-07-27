@@ -175,7 +175,11 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         if(IS_REAL_SCALAR(SIGMA_IN)) texture = false;
         else texture = true;
 
-        if(mxIsEmpty(SIGMA_IN)) sigmasquared = 32768.0; /* 65536.0/2 */
+        if(mxIsEmpty(SIGMA_IN))
+        {
+            texture = false;
+            sigmasquared = 32768.0; /* 65536.0/2 */
+        }
         else if(texture==false)
         {
             sigmasquared = mxGetScalar(SIGMA_IN);
@@ -314,7 +318,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
                         for (DATA_TYPE mi=0; mi<=patchsize_minus_one; ++mi)
                         {
                             curr_x = nnf[idx_start_xx+i]+mi;
-                            if(mask[mi][mj]>0.0 && (curr_x>=0 && curr_x<REFIMG_SIZE[0] && curr_y>=0 && curr_y<REFIMG_SIZE[1] )&& (i>=0 && (i+patchsize_minus_one)<NNF_DIMS[0] && j>=0 && (j+patchsize_minus_one)<NNF_DIMS[1]) && (!same_image ||((idx_curr+i+(mj*NNF_DIMS[0]+mi))!=(curr_x+curr_y*REFIMG_SIZE[0]))) && (static_cast<double>(curr_d)<threshold))
+                            if(mask[mi][mj]>0.0 && (curr_x>=0 && curr_x<REFIMG_SIZE[0] && curr_y>=0 && curr_y<REFIMG_SIZE[1] )&& (!same_image ||((idx_curr+i+(mj*NNF_DIMS[0]+mi))!=(curr_x+curr_y*REFIMG_SIZE[0]))) && (static_cast<double>(curr_d)<threshold))
                             {
                                 idx_x[k].push_back(idx_curr+i+(mj*NNF_DIMS[0]+mi));
                                 idx_y[k].push_back(curr_x+curr_y*REFIMG_SIZE[0]);
@@ -377,7 +381,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
                         for (DATA_TYPE mi=0; mi<=patchsize_minus_one; ++mi)
                         {
                             curr_x = nnf[idx_start_xx+i]+mi;
-                            if(mask[mi][mj]>0.0 && (curr_x>=0 && curr_x<REFIMG_SIZE[0] && curr_y>=0 && curr_y<REFIMG_SIZE[1] )&& (i>=0 && (i+patchsize_minus_one)<NNF_DIMS[0] && j>=0 && (j+patchsize_minus_one)<NNF_DIMS[1]) && (!same_image ||((idx_curr+i+(mj*NNF_DIMS[0]+mi))!=(curr_x+curr_y*REFIMG_SIZE[0]))) && (static_cast<double>(curr_d)<threshold))
+                            if(mask[mi][mj]>0.0 && (curr_x>=0 && curr_x<REFIMG_SIZE[0] && curr_y>=0 && curr_y<REFIMG_SIZE[1] )&& (!same_image ||((idx_curr+i+(mj*NNF_DIMS[0]+mi))!=(curr_x+curr_y*REFIMG_SIZE[0]))) && (static_cast<double>(curr_d)<threshold))
                             {
                                 expval = exp(-static_cast<double>(curr_d)/sigmasquared)*mask[mi][mj];
                                 idx_x[k].push_back(idx_curr+i+(mj*NNF_DIMS[0]+mi));
@@ -445,7 +449,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
                         for (DATA_TYPE mi=0; mi<=patchsize_minus_one; ++mi)
                         {
                             curr_x = nnf[idx_start_xx+i]+mi;
-                            if(mask[mi][mj]>0.0 && (curr_x>=0 && curr_x<REFIMG_SIZE[0] && curr_y>=0 && curr_y<REFIMG_SIZE[1] )&& (i>=0 && (i+patchsize_minus_one)<NNF_DIMS[0] && j>=0 && (j+patchsize_minus_one)<NNF_DIMS[1]) && (!same_image ||((idx_curr+i+(mj*NNF_DIMS[0]+mi))!=(curr_x+curr_y*REFIMG_SIZE[0]))) && (static_cast<double>(curr_d)<threshold))
+                            if(mask[mi][mj]>0.0 && (curr_x>=0 && curr_x<REFIMG_SIZE[0] && curr_y>=0 && curr_y<REFIMG_SIZE[1] )&& (!same_image ||((idx_curr+i+(mj*NNF_DIMS[0]+mi))!=(curr_x+curr_y*REFIMG_SIZE[0]))) && (static_cast<double>(curr_d)<threshold))
                             {
                                 expval = exp(-static_cast<double>(curr_d)*texturemat[idx_curr+i]/sigmasquared)*mask[mi][mj]; /* texture_mat */
                                 idx_x[k].push_back(idx_curr+i+(mj*NNF_DIMS[0]+mi));
