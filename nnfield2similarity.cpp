@@ -104,7 +104,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     /* check number of arguments */
 
-    if(nrhs<1 || nrhs>9) mexErrMsgTxt("Wrong number of input arguments.");
+    if(nrhs<1 || nrhs>10) mexErrMsgTxt("Wrong number of input arguments.");
     else if(nlhs>1) mexErrMsgTxt("Too many output arguments.");
 
     /* check all arguments one by one if valid or set default if empty */
