@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Createsimilaritymatrix : NN-Field to Similarity Matrix" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Createsimilaritymatrix</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/mohammadul/createsimilaritymatrix">View on GitHub</a>
+
+          <h1 id="project_title">Createsimilaritymatrix</h1>
+          <h2 id="project_tagline">NN-Field to Similarity Matrix</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/mohammadul/createsimilaritymatrix/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/mohammadul/createsimilaritymatrix/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>
+<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Converts an NN-field to its Similarity Matrix.</h3>
+
+<p>This is a MATLAB implementation of converting nn-field obtained from Patchmatch(<a href="http://mohammadul.github.io/patchmatch" class="anchor">@patchmatch</a>) to its similarity matrix.</p>
+<h6>Salient Features:</h6>
+<p><ul>
+<li>Runs on int32 NN-field.</li>
+<li>Handles different types of weights (0/1 and exponential)</li>
+<li>Handles texture-based weights</li>
+<li>External thresholding passed as an argument.</li>
+<li>Works with any given mask passed as an argument.</li>
+</ul>
+</p>
+
+<h6>Format:</h6>
+The command line format is as follows.</br>
+<span ><span style="color: rgb(0, 102, 0);">sm</span> =
+nnfield2similarity(<span style="color: rgb(153, 0, 0);">nnf</span>, <span
+style="color: rgb(153, 0, 0);">wttype</span>, <span
+style="color: rgb(153, 0, 0);">sigma</span>, <span
+style="color: rgb(153, 0, 0);">normalized</span>, <span
+style="color: rgb(153, 0, 0);">make_symm</span>, <span
+style="color: rgb(153, 0, 0);">patchsize</span>, <span
+style="color: rgb(153, 0, 0);">alpha</span>, <span
+style="color: rgb(153, 0, 0);">threshold</span>, <span
+style="color: rgb(153, 0, 0);">mask</span>, <span
+style="color: rgb(153, 0, 0);">ref_img_size</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style="color: rgb(153, 0, 0);">nnf</span> - nearest neighbour field<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style="color: rgb(153, 0, 0);">wttype</span>- 0 - one-type (default) , 1 - gaussian(exp)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style="color: rgb(153, 0, 0);">sigma</span> - exponential wt sigma (default - 256)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style="color: rgb(153, 0, 0);">normalized</span> - 0/1 (default - 0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style="color: rgb(153, 0, 0);">make_symm</span> - 0/1 (default - 0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style="color: rgb(153, 0, 0);">patchsize</span> - size of search patch (default - 1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style="color: rgb(153, 0, 0);">alpha</span> - for diagonal elements (default - 1.0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style="color: rgb(153, 0, 0);">threshold</span> - for limiting similar patches (default - DBL_MAX)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style="color: rgb(153, 0, 0);">mask</span> - patch weight mask (default - center dot)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style="color: rgb(153, 0, 0);">ref_img_size</span> - reference image size (2X1) (default - same as nnf)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style="color: rgb(0, 102, 0);">sm</span> - output similarity matrix</span>
+
+<h6>Examples:</h6>
+<pre><code>img = double(imresize(imread('lena.png'),0.25)); 
+patchsize = 5; nn = 10;
+cnn = patchmatch(img, [], patchsize, nn, 20, [], 1, [], [], [], 2);
+sm = nnfield2similarity(cnn, 1, 10, [], [], patchsize);
+</code></pre>
+<img class="center" src="images/sample1.jpg" width="210px" height="210px" alt="Similarity Matrix on image lena.png'">
+</span>
+
+
+<h3>
+<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+<p>Sk. Mohammadul Haque (<a href="https://github.com/mohammadul" class="user-mention">@mohammadul</a>).</p>
+
+<h3>
+<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+
+<p>Check out the files in the repository for more details.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Createsimilaritymatrix maintained by <a href="https://github.com/mohammadul">mohammadul</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
